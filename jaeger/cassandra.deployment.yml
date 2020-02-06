@@ -53,6 +53,12 @@ items:
     spec:
       serviceName: cassandra
       replicas: 3
+      selector:
+        matchLabels:
+          app: cassandra
+          app.kubernetes.io/name: cassandra
+          app.kubernetes.io/component: storage-backend
+          app.kubernetes.io/part-of: jaeger
       template:
         metadata:
           labels:
