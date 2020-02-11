@@ -3,13 +3,16 @@
 cd EKF
 kubectl apply -f namespace.yml
 kubectl apply -f . 
+echo -------------------
 
 #install  jaeger
 cd ../jaeger/cassandra
 kubectl apply -f .
+echo -------------------
 
 cd ..
 kubectl apply -f . 
+echo -------------------
 
 #install prometheus
 
@@ -18,6 +21,8 @@ cd prometheus
 cd install-prometheus
 kubectl create ns monitoring
 kubectl apply -f .
+
+echo -------------------
 #install grafana
 
 cd ..
@@ -27,6 +32,7 @@ kubectl apply -f .
 
 #master slave 
 #kubectl exec -it redis-cluster-0 -- redis-cli --cluster create $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
+echo -------------------
 
 #intsall ingress
 cd ..
@@ -35,6 +41,7 @@ cd ingress
 kubectl apply -f .
 kubectl apply -f .
 kubectl apply -f .
+echo -------------------
 
 #install nats 
 
@@ -44,3 +51,4 @@ cd nats.beta
 kubectl  apply -f all.nats.yaml
 
 kubectl apply -f .
+echo -------------------
