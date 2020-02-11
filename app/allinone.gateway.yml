@@ -42,10 +42,16 @@ spec:
             - name: TRANSPORTER
               value: nats://nats:4222
             - name: REDIS
-              value: redis-cluster-0
+              value: redis-cluster
+            - name: REDIS_HOST
+              valueFrom:
+                filedRef:
+                  fieldPath: status.clusterIP
+            - name: REDIS_PORT
+              value: "6379"
           envFrom:
             - secretRef:
-                name: nats-tls-client-example
+                name: nats-tls-client
             # - secretRef:
             #     name: redis-cluster
             # - secretRef:
