@@ -29,6 +29,8 @@ kubectl apply -f .
 #kubectl exec -it redis-cluster-0 -- redis-cli --cluster create $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
 
 #intsall ingress
+cd ..
+
 cd ingress
 kubectl apply -f .
 kubectl apply -f .
