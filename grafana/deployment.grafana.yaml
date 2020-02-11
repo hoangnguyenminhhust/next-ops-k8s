@@ -20,6 +20,7 @@ spec:
           ports:
             - name: grafana
               containerPort: 3000
+
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-storage
@@ -31,5 +32,5 @@ spec:
           emptyDir: {}
         - name: grafana-datasources
           configMap:
-            defaultMode: 420
+            defaultMode: 0077
             name: grafana-datasources

@@ -1,0 +1,47 @@
+apiVersion: "nats.io/v1alpha2"
+kind: "NatsCluster"
+metadata:
+  name: "nats-cluster"
+spec:
+  size: 3
+
+  # Using custom edge nats server image for TLS verify and map support.
+  serverImage: "wallyqs/nats-server"
+  version: "edge-2.0.0-RC5"
+
+  tls:
+    enableHttps: true
+
+    # Certificates to secure the NATS client connections:
+    serverSecret: "nats-tls-example"
+
+    # Certificates to secure the routes.
+    routesSecret: "nats-tls-routes-example"
+
+  auth:
+    tlsVerifyAndMap: true
+    clientsAuthSecret: "nats-tls-users"
+
+    # How long to wait for authentication
+    clientsAuthTimeout: 5
+
+  pod:
+    # To be able to reload the secret changes
+    enableConfigReload: true
+    reloaderImage: connecteverything/nats-server-config-reloader
+
+    # Bind the port 4222 as the host port to allow external access.
+    enableClientsHostPort: true
+
+    # Initializer container that resolves the external IP from the
+    # container where it is running.
+    advertiseExternalIP: true
+
+    # Image of container that resolves external IP from K8S API
+    bootconfigImage: "wallyqs/nats-boot-config"
+    bootconfigImageTag: "0.5.0"
+
+  # Service account required to be able to find the external IP
+  template:
+    spec:
+      serviceAccountName: "nats-server"

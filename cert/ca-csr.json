@@ -1,0 +1,14 @@
+{
+    "CN": "My Custom CA",
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [{
+        "C": "VN",
+        "L": "CA",
+        "O": "NextTech",
+        "ST": "NA",
+        "OU": "OneTime"
+    }]
+}

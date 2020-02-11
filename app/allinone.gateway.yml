@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nspos-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nspos-api-gateway
+  template:
+    metadata:
+      labels:
+        app: nspos-api-gateway
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "6969"
+    spec:
+      containers:
+        - name: nspos-api-gateway
+          image: docker.io/hoangnguyenminhhust/k8s:gate-way-dev
+          resources:
+            requests:
+              cpu: 10m
+          # ports:
+          #   - containerPort: 80
+          env:
+            # - name: PORT
+            #   value: '80'
+            - name: FLUENTD_HOST
+              value: fluentd.monitoring
+            - name: FLUENTD_PORT
+              value: "24224"
+            - name: NODEENV
+              value: clusterIP
+            - name: JAEGER_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: JAEGER_AGENT_PORT
+              value: "6832"
+            - name: TRANSPORTER
+              value: nats://nats:4222
+            - name: REDIS
+              value: redis-cluster-0
+          envFrom:
+            - secretRef:
+                name: nats-tls-client-example
+            # - secretRef:
+            #     name: redis-cluster
+            # - secretRef:
+            #     name: nextpos-api-url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nspos-api-gateway
+spec:
+  selector:
+    app: nspos-api-gateway
+  ports:
+    - port: 80
+      targetPort: 80

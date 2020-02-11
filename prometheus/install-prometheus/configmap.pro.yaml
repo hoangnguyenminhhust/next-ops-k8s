@@ -1,3 +1,14 @@
+---
+# create namespaces
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    app.kubernetes.io/name: monitoring
+    app.kubernetes.io/part-of: monitoring
+
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:

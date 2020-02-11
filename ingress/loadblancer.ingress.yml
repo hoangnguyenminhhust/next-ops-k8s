@@ -2,19 +2,31 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: basic-ingress
+  namespace: ingress-nginx
 spec:
   rules:
     - http:
         paths:
-          - path: /1
-            backend:
-              serviceName: web
-              servicePort: 8080
+
           - path: /2
             backend:
-              serviceName: my-service-gate-way
-              servicePort: 3000
+              serviceName: nspos-api-gateway
+              servicePort: 80
           - path: /3
             backend:
-              serviceName: app1
+              serviceName: hello-service
               servicePort: 8081
+
+
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: basic-ingress
+# spec:
+#   rules:
+#   - host: lovecat.host
+#     http:
+#       paths:
+#       - backend:
+#           serviceName: hello-service
+#           servicePort: 8081

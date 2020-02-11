@@ -22,8 +22,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - nats-operator
-          # Uncomment to perform a cluster-scoped deployment in supported versions.
-          #- --feature-gates=ClusterScoped=true
+            #- --feature-gates=ClusterScoped=true
           ports:
             - name: readyz
               containerPort: 8080
