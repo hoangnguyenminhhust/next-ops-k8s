@@ -42,10 +42,7 @@ spec:
             - name: TRANSPORTER
               value: nats://nats-cluster:4222
             - name: REDIS
-              value: redis-cluster
-
-            - name: REDIS
-              value: "6379"
+              value: redis://redis-cluster:6379
           envFrom:
             - secretRef:
                 name: nats-tls-client
