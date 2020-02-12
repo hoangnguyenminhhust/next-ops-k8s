@@ -46,9 +46,9 @@ spec:
 
             - name: REDIS
               value: "6379"
-          # envFrom:
-          #   - secretRef:
-          #       name: nats-tls-client-example
+          envFrom:
+            - secretRef:
+                name: nats-tls-client
           # - secretRef:
           #     name: redis-cluster
           # - secretRef:
