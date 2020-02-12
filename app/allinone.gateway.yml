@@ -43,19 +43,16 @@ spec:
               value: nats://nats-cluster:4222
             - name: REDIS
               value: redis-cluster
-            - name: REDIS_HOST
-              valueFrom:
-                filedRef:
-                  fieldPath: status.clusterIP
-            - name: REDIS_PORT
+
+            - name: REDIS
               value: "6379"
-          envFrom:
-            - secretRef:
-                name: nats-tls-client
-            # - secretRef:
-            #     name: redis-cluster
-            # - secretRef:
-            #     name: nextpos-api-url
+          # envFrom:
+          #   - secretRef:
+          #       name: nats-tls-client-example
+          # - secretRef:
+          #     name: redis-cluster
+          # - secretRef:
+          #     name: nextpos-api-url
 
 ---
 apiVersion: v1
