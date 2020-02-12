@@ -40,7 +40,7 @@ spec:
             - name: JAEGER_AGENT_PORT
               value: "6832"
             - name: TRANSPORTER
-              value: nats://nats:4222
+              value: nats://nats-cluster:4222
             - name: REDIS
               value: redis-cluster
             - name: REDIS_HOST
