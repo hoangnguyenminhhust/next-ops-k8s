@@ -7,7 +7,6 @@ spec:
   rules:
     - http:
         paths:
-
           - path: /2
             backend:
               serviceName: nspos-api-gateway
@@ -16,17 +15,20 @@ spec:
             backend:
               serviceName: hello-service
               servicePort: 8081
-
-
+# ---
 # apiVersion: extensions/v1beta1
 # kind: Ingress
 # metadata:
-#   name: basic-ingress
+#   name: do-api-admin-elove-mobi
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/proxy-body-size: "20M"
 # spec:
 #   rules:
-#   - host: lovecat.host
-#     http:
-#       paths:
-#       - backend:
-#           serviceName: hello-service
-#           servicePort: 8081
+#     - host: devapi-admin.elove.mobi
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: nsa-api-gateway
+#               servicePort: 3000

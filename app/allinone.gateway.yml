@@ -40,12 +40,12 @@ spec:
             - name: JAEGER_AGENT_PORT
               value: "6832"
             - name: TRANSPORTER
-              value: nats://nats-cluster:4222
+              value: nats://nats:4222
             - name: REDIS
               value: redis://redis-cluster:6379
           envFrom:
             - secretRef:
-                name: nats-tls-client
+                name: nats-tls-routes
           # - secretRef:
           #     name: redis-cluster
           # - secretRef:

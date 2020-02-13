@@ -13,10 +13,10 @@ spec:
     enableHttps: true
 
     # Certificates to secure the NATS client connections:
-    serverSecret: "nats-tls-example"
+    serverSecret: "nats-tls"
 
     # Certificates to secure the routes.
-    routesSecret: "nats-tls-routes-example"
+    routesSecret: "nats-tls-routes"
 
   auth:
     tlsVerifyAndMap: true
