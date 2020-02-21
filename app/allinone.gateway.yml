@@ -22,34 +22,28 @@ spec:
           resources:
             requests:
               cpu: 10m
-          # ports:
-          #   - containerPort: 80
           env:
-            # - name: PORT
-            #   value: '80'
+            - name: PORT
+              value: "3000"
             - name: FLUENTD_HOST
-              value: fluentd.monitoring
+              value: fluentd.kube-logging
             - name: FLUENTD_PORT
               value: "24224"
             - name: NODEENV
-              value: clusterIP
+              value: develop
             - name: JAEGER_AGENT_HOST
               valueFrom:
                 fieldRef:
+                  apiVersion: v1
                   fieldPath: status.hostIP
             - name: JAEGER_AGENT_PORT
               value: "6832"
             - name: TRANSPORTER
-              value: nats://nats:4222
-            - name: REDIS
-              value: redis://redis-cluster:6379
-          envFrom:
-            - secretRef:
-                name: nats-tls-routes
-          # - secretRef:
-          #     name: redis-cluster
-          # - secretRef:
-          #     name: nextpos-api-url
+              value: nats://example-nats-cluster:4222
+            - name: REDIS_HOST
+              value: redis-cluster
+            - name: REDIS_PORT
+              value: "6379"
 
 ---
 apiVersion: v1

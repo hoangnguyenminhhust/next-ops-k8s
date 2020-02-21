@@ -1,0 +1,96 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "30"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"nspos-api-gateway","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"nspos-api-gateway"}},"template":{"metadata":{"annotations":{"prometheus.io/port":"6969","prometheus.io/scrape":"true"},"labels":{"app":"nspos-api-gateway"}},"spec":{"containers":[{"env":[{"name":"PORT","value":"3000"},{"name":"FLUENTD_HOST","value":"fluentd.monitoring"},{"name":"FLUENTD_PORT","value":"24224"},{"name":"NODEENV","value":"develop"},{"name":"JAEGER_AGENT_HOST","valueFrom":{"fieldRef":{"fieldPath":"status.hostIP"}}},{"name":"JAEGER_AGENT_PORT","value":"6832"},{"name":"TRANSPORTER","value":"nats://nats-cluster:4222"}],"envFrom":[{"secretRef":{"name":"jwt-secret"}},{"secretRef":{"name":"redis-cluster"}},{"secretRef":{"name":"nextpos-api-url"}}],"image":"067796362593.dkr.ecr.ap-southeast-1.amazonaws.com/nspos-api-gateway:f037717c6205b33a62dd63ebc27e6e0d28c839a2","name":"nspos-api-gateway","ports":[{"containerPort":3000}],"resources":{"requests":{"cpu":"10m"}}}]}}}}
+  creationTimestamp: "2020-02-04T11:04:38Z"
+  generation: 30
+  name: nspos-api-gateway
+  namespace: default
+  resourceVersion: "11399600"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/nspos-api-gateway
+  uid: 2302a5b0-473e-11ea-af49-1eea9d3ba907
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nspos-api-gateway
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "6969"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: nspos-api-gateway
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: "3000"
+            - name: FLUENTD_HOST
+              value: fluentd.monitoring
+            - name: FLUENTD_PORT
+              value: "24224"
+            - name: NODEENV
+              value: develop
+            - name: JAEGER_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
+            - name: JAEGER_AGENT_PORT
+              value: "6832"
+            - name: TRANSPORTER
+              value: nats://nats-cluster:4222
+          envFrom:
+            - secretRef:
+                name: jwt-secret
+            - secretRef:
+                name: redis-cluster
+            - secretRef:
+                name: nextpos-api-url
+          image: 067796362593.dkr.ecr.ap-southeast-1.amazonaws.com/nspos-api-gateway:f037717c6205b33a62dd63ebc27e6e0d28c839a2
+          imagePullPolicy: IfNotPresent
+          name: nspos-api-gateway
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 10m
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: "2020-02-05T02:25:59Z"
+      lastUpdateTime: "2020-02-05T02:25:59Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-02-06T02:37:36Z"
+      lastUpdateTime: "2020-02-12T10:22:42Z"
+      message: ReplicaSet "nspos-api-gateway-7b6d988488" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+  observedGeneration: 30
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
